@@ -1,0 +1,147 @@
+.taskItem {
+  display: flex;
+  align-items: center;
+  padding: 0.6rem;
+  border-bottom: 1px solid #ddd;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.taskText {
+  flex: 1;
+  margin-right: 0.6rem;
+  font-size: 1rem;
+}
+
+.taskText.completed {
+  text-decoration: line-through;
+  color: var(--text-completed);
+}
+
+.taskText.editing {
+  background-color: #f0f0f0;
+  padding: 0.3rem;
+  border-radius: 4px;
+  width: 70%;
+}
+
+.completeBtn,
+.removeBtn,
+.sublistBtn {
+  padding: 0.3rem 0.6rem;
+  font-size: 1.1rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.removeBtn {
+  background-color: transparent;
+  color: var(--remove-btn);
+}
+
+.removeBtn:hover {
+  color: var(--remove-btn-hover);
+}
+
+.completeBtn {
+  background-color: transparent;
+  color: var(--complete-btn);
+}
+
+.completeBtn:hover {
+  color: var(--complete-btn-hover);
+}
+
+.sublistBtn {
+  background-color: transparent;
+  color: var(--sublist-btn);
+}
+
+.sublistBtn:hover {
+  color: var(--sublist-btn-hover);
+}
+
+.subtaskInput {
+  display: none;
+  width: 100%;
+  margin-top: 0.6rem;
+  margin-left: 0;
+}
+
+.subtaskInput.active {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.subtaskInput input {
+  flex: 1;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  min-width: 0;
+}
+
+.subtaskInput button {
+  padding: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.subtaskList {
+  width: 100%;
+  margin-left: 0;
+  padding: 0;
+  display: none;
+  margin-top: 0.6rem;
+}
+
+.subtaskList.active {
+  display: block;
+}
+
+@media (max-width: 425px) {
+  .taskText {
+    font-size: 0.85rem;
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 0.3rem;
+  }
+
+  .completeBtn,
+  .removeBtn,
+  .sublistBtn {
+    padding: 0.2rem 0.4rem;
+    font-size: 0.9rem;
+    margin-left: 0.3rem;
+    margin-top: 0;
+  }
+
+  .subtaskInput input {
+    font-size: 0.85rem;
+    padding: 0.4rem;
+  }
+
+  .subtaskInput button {
+    padding: 0.4rem;
+    font-size: 0.85rem;
+  }
+}
+
+@media (min-width: 426px) and (max-width: 600px) {
+  .taskText {
+    font-size: 0.9rem;
+  }
+
+  .completeBtn,
+  .removeBtn,
+  .sublistBtn {
+    padding: 0.2rem 0.5rem;
+    font-size: 1rem;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 900px) {
+  .taskText {
+    font-size: 0.95rem;
+  }
+}
