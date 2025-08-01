@@ -6,6 +6,7 @@ import './App.css';
 function App() {
   const [tasks, setTasks] = useState([]);
   const [taskInput, setTaskInput] = useState('');
+  const [taskTime, setTaskTime] = useState('');
   const [filter, setFilter] = useState('all');
   const [pastLists, setPastLists] = useState([]);
   const [showPastLists, setShowPastLists] = useState(false);
@@ -30,21 +31,19 @@ function App() {
     setPastLists(savedPastLists.sort((a, b) => new Date(b.date) - new Date(a.date)));
   }, []);
 
-  const addTask = () => {
-    if (taskInput.trim() === '') {
-      alert('Please enter a task!');
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (taskInput.trim() === '' || taskTime === '') {
+      alert('Please enter both a task and a time!');
       return;
     }
-    const newTask = { id: Date.now(), text: taskInput, completed: false, subtasks: [] };
+    const newTask = { id: Date.now(), text: taskInput, time: taskTime, completed: false, subtasks: [] };
     const newTasks = [...tasks, newTask];
     setTasks(newTasks);
     localStorage.setItem('tasks', JSON.stringify(newTasks));
     setTaskInput('');
+    setTaskTime('');
     setFilter('all');
-  };
-
-  const handleKeyPress = (e) => {
-    if (e.key === 'Enter') addTask();
   };
 
   const saveTasks = (updatedTasks) => {
@@ -59,16 +58,20 @@ function App() {
     <div className="container">
       <h2>To-Do List</h2>
       <p className="currentDate">{today}</p>
-      <div className="textInput">
+      <form className="textInput" onSubmit={handleSubmit}>
         <input
           type="text"
           value={taskInput}
           onChange={(e) => setTaskInput(e.target.value)}
-          onKeyPress={handleKeyPress}
           placeholder="Enter a new task"
         />
-        <button onClick={addTask}>Add Task</button>
-      </div>
+        <input
+          type="time"
+          value={taskTime}
+          onChange={(e) => setTaskTime(e.target.value)}
+        />
+        <button type="submit">Add Task</button>
+      </form>
       <div className="filterTasks">
         <button
           className={`filterBtn ${filter === 'all' ? 'active' : ''}`}

@@ -29,13 +29,18 @@ h2 {
   margin-bottom: 1.5rem;
 }
 
-.textInput input {
+.textInput input[type="text"],
+.textInput input[type="time"] {
   flex: 1;
   padding: 0.6rem;
   border: 1px solid #ddd;
   border-radius: 4px;
   font-size: 1rem;
   min-width: 0;
+}
+
+.textInput input[type="time"] {
+  flex: 0 0 120px;
 }
 
 .textInput button,
@@ -98,9 +103,18 @@ h2 {
     font-size: 0.8rem;
   }
 
-  .textInput input {
+  .textInput {
+    flex-wrap: wrap;
+  }
+
+  .textInput input[type="text"],
+  .textInput input[type="time"] {
     font-size: 0.85rem;
     padding: 0.4rem;
+  }
+
+  .textInput input[type="time"] {
+    flex: 0 0 100px;
   }
 
   .textInput button,
@@ -125,9 +139,14 @@ h2 {
     font-size: 1.5rem;
   }
 
-  .textInput input {
+  .textInput input[type="text"],
+  .textInput input[type="time"] {
     font-size: 0.9rem;
     padding: 0.5rem;
+  }
+
+  .textInput input[type="time"] {
+    flex: 0 0 110px;
   }
 
   .textInput button,
@@ -152,8 +171,13 @@ h2 {
     font-size: 1.7rem;
   }
 
-  .textInput input {
+  .textInput input[type="text"],
+  .textInput input[type="time"] {
     font-size: 0.95rem;
+  }
+
+  .textInput input[type="time"] {
+    flex: 0 0 120px;
   }
 
   .textInput button,

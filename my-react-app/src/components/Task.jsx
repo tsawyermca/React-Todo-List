@@ -5,6 +5,7 @@ import './Task.css';
 function Task({ task, tasks, setTasks }) {
   const [isEditing, setIsEditing] = useState(false);
   const [editText, setEditText] = useState(task.text);
+  const [editTime, setEditTime] = useState(task.time);
   const [showSubtaskInput, setShowSubtaskInput] = useState(false);
   const [subtaskInput, setSubtaskInput] = useState('');
 
@@ -26,27 +27,21 @@ function Task({ task, tasks, setTasks }) {
     }
   };
 
-  const finishEditing = () => {
-    if (editText.trim() === '') {
-      alert('Task cannot be empty!');
+  const finishEditing = (e) => {
+    e.preventDefault();
+    if (editText.trim() === '' || editTime === '') {
+      alert('Task and time cannot be empty!');
       return;
     }
     const updatedTasks = tasks.map(t =>
-      t.id === task.id ? { ...t, text: editText } : t
+      t.id === task.id ? { ...t, text: editText, time: editTime } : t
     );
     setTasks(updatedTasks);
     setIsEditing(false);
   };
 
-  const handleKeyPress = (e) => {
-    if (e.key === 'Enter') finishEditing();
-  };
-
-  const toggleSubtaskInput = () => {
-    setShowSubtaskInput(!showSubtaskInput);
-  };
-
-  const addSubtask = () => {
+  const handleSubtaskSubmit = (e) => {
+    e.preventDefault();
     if (subtaskInput.trim() === '') {
       alert('Subtask cannot be empty!');
       return;
@@ -59,49 +54,53 @@ function Task({ task, tasks, setTasks }) {
     setSubtaskInput('');
   };
 
-  const handleSubtaskKeyPress = (e) => {
-    if (e.key === 'Enter') addSubtask();
-  };
-
   return (
     <li className="taskItem">
       {isEditing ? (
-        <input
-          type="text"
-          value={editText}
-          onChange={(e) => setEditText(e.target.value)}
-          onBlur={finishEditing}
-          onKeyPress={handleKeyPress}
-          className="taskText editing"
-          autoFocus
-        />
+        <form className="editForm" onSubmit={finishEditing}>
+          <input
+            type="text"
+            value={editText}
+            onChange={(e) => setEditText(e.target.value)}
+            className="taskText editing"
+            autoFocus
+          />
+          <input
+            type="time"
+            value={editTime}
+            onChange={(e) => setEditTime(e.target.value)}
+            className="taskTime editing"
+          />
+          <button type="submit">Save</button>
+        </form>
       ) : (
-        <span
-          className={`taskText ${task.completed ? 'completed' : ''}`}
-          onClick={startEditing}
-        >
-          {task.text}
-        </span>
+        <div className="taskContent" onClick={startEditing}>
+          <span className={`taskText ${task.completed ? 'completed' : ''}`}>
+            {task.text}
+          </span>
+          <span className={`taskTime ${task.completed ? 'completed' : ''}`}>
+            {task.time ? new Date(`1970-01-01T${task.time}:00`).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true }) : ''}
+          </span>
+        </div>
       )}
       <button className="completeBtn" onClick={toggleComplete}>
         ✅
       </button>
-      <button className="sublistBtn" onClick={toggleSubtaskInput}>
+      <button className="sublistBtn" onClick={() => setShowSubtaskInput(!showSubtaskInput)}>
         {showSubtaskInput ? '➖' : '➕'}
       </button>
       <button className="removeBtn" onClick={removeTask}>
         ❌
       </button>
-      <div className={`subtaskInput ${showSubtaskInput ? 'active' : ''}`}>
+      <form className={`subtaskInput ${showSubtaskInput ? 'active' : ''}`} onSubmit={handleSubtaskSubmit}>
         <input
           type="text"
           value={subtaskInput}
           onChange={(e) => setSubtaskInput(e.target.value)}
-          onKeyPress={handleSubtaskKeyPress}
           placeholder="Enter a subtask"
         />
-        <button onClick={addSubtask}>Add</button>
-      </div>
+        <button type="submit">Add</button>
+      </form>
       <ul className={`subtaskList ${task.subtasks.length > 0 ? 'active' : ''}`}>
         {task.subtasks.map(subtask => (
           <Subtask

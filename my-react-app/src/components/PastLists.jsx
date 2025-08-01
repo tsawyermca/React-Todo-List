@@ -16,9 +16,14 @@ function PastLists({ pastLists }) {
             <ul>
               {pastList.tasks.map(task => (
                 <li key={task.id}>
-                  <span className={`taskText ${task.completed ? 'completed' : ''}`}>
-                    {task.text}
-                  </span>
+                  <div className="taskContent">
+                    <span className={`taskText ${task.completed ? 'completed' : ''}`}>
+                      {task.text}
+                    </span>
+                    <span className={`taskTime ${task.completed ? 'completed' : ''}`}>
+                      {task.time ? new Date(`1970-01-01T${task.time}:00`).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true }) : ''}
+                    </span>
+                  </div>
                   {task.subtasks.length > 0 && (
                     <ul className="subtaskList active">
                       {task.subtasks.map(subtask => (

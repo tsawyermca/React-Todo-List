@@ -7,22 +7,60 @@
   flex-wrap: wrap;
 }
 
-.taskText {
+.taskContent {
   flex: 1;
   margin-right: 0.6rem;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.taskText {
   font-size: 1rem;
 }
 
-.taskText.completed {
-  text-decoration: line-through;
-  color: var(--text-completed);
+.taskTime {
+  font-size: 0.9rem;
+  color: #555;
 }
 
-.taskText.editing {
+.taskText.completed,
+.taskTime.completed {
+  text-decoration: line-through;
+  color: #888;
+}
+
+.editForm {
+  display: flex;
+  flex: 1;
+  gap: 0.5rem;
+  margin-right: 0.6rem;
+}
+
+.taskText.editing,
+.taskTime.editing {
   background-color: #f0f0f0;
   padding: 0.3rem;
   border-radius: 4px;
-  width: 70%;
+  flex: 1;
+}
+
+.taskTime.editing {
+  flex: 0 0 120px;
+}
+
+.editForm button {
+  padding: 0.3rem 0.6rem;
+  font-size: 0.9rem;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.editForm button:hover {
+  background-color: #218838;
 }
 
 .completeBtn,
@@ -36,29 +74,29 @@
 
 .removeBtn {
   background-color: transparent;
-  color: var(--remove-btn);
+  color: #dc3545;
 }
 
 .removeBtn:hover {
-  color: var(--remove-btn-hover);
+  color: #c82333;
 }
 
 .completeBtn {
   background-color: transparent;
-  color: var(--complete-btn);
+  color: #28a745;
 }
 
 .completeBtn:hover {
-  color: var(--complete-btn-hover);
+  color: #218838;
 }
 
 .sublistBtn {
   background-color: transparent;
-  color: var(--sublist-btn);
+  color: #007bff;
 }
 
 .sublistBtn:hover {
-  color: var(--sublist-btn-hover);
+  color: #0056b3;
 }
 
 .subtaskInput {
@@ -100,11 +138,40 @@
 }
 
 @media (max-width: 425px) {
+  .taskContent {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    margin-bottom: 0.3rem;
+  }
+
   .taskText {
     font-size: 0.85rem;
     width: 100%;
-    margin-right: 0;
-    margin-bottom: 0.3rem;
+  }
+
+  .taskTime {
+    font-size: 0.8rem;
+  }
+
+  .editForm {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .taskText.editing,
+  .taskTime.editing {
+    font-size: 0.85rem;
+    padding: 0.4rem;
+  }
+
+  .taskTime.editing {
+    flex: 0 0 100px;
+  }
+
+  .editForm button {
+    padding: 0.4rem;
+    font-size: 0.85rem;
   }
 
   .completeBtn,
@@ -132,6 +199,16 @@
     font-size: 0.9rem;
   }
 
+  .taskTime {
+    font-size: 0.85rem;
+  }
+
+  .taskText.editing,
+  .taskTime.editing {
+    font-size: 0.9rem;
+    padding: 0.5rem;
+  }
+
   .completeBtn,
   .removeBtn,
   .sublistBtn {
@@ -143,5 +220,9 @@
 @media (min-width: 601px) and (max-width: 900px) {
   .taskText {
     font-size: 0.95rem;
+  }
+
+  .taskTime {
+    font-size: 0.9rem;
   }
 }
